@@ -2,12 +2,14 @@ import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { useChatStore } from "../../lib/chatStore";
 import { auth, db } from "../../lib/firebase";
 import { useUserStore } from "../../lib/userStore";
+import { useState } from "react";
 import "./detail.css";
 
 const Detail = () => {
     const { chatId, user, isCurrentUserBlocked, isReceiverBlocked, changeBlock, resetChat } =
         useChatStore();
     const { currentUser } = useUserStore();
+    const [showPhotos, setShowPhotos] = useState(false);
 
     const handleBlock = async () => {
         if (!user) return;
@@ -26,7 +28,11 @@ const Detail = () => {
 
     const handleLogout = () => {
         auth.signOut();
-        resetChat()
+        resetChat();
+    };
+
+    const togglePhotos = () => {
+        setShowPhotos(!showPhotos);
     };
 
     return (
@@ -50,52 +56,54 @@ const Detail = () => {
                     </div>
                 </div>
                 <div className="option">
-                    <div className="title">
+                    <div className="title" onClick={togglePhotos}>
                         <span>Shared photos</span>
-                        <img src="./arrowDown.png" alt="" />
+                        <img src={showPhotos ? "./arrowUp.png" : "./arrowDown.png"} alt="" />
                     </div>
-                    <div className="photos">
-                        <div className="photoItem">
-                            <div className="photoDetail">
-                                <img
-                                    src="https://images.pexels.com/photos/7381200/pexels-photo-7381200.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-                                    alt=""
-                                />
-                                <span>photo_2024_2.png</span>
+                    {showPhotos && (
+                        <div className="photos">
+                            <div className="photoItem">
+                                <div className="photoDetail">
+                                    <img
+                                        src="https://images.pexels.com/photos/7381200/pexels-photo-7381200.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
+                                        alt=""
+                                    />
+                                    <span>photo_2024_2.png</span>
+                                </div>
+                                <img src="./download.png" alt="" className="icon" />
                             </div>
-                            <img src="./download.png" alt="" className="icon" />
-                        </div>
-                        <div className="photoItem">
-                            <div className="photoDetail">
-                                <img
-                                    src="https://images.pexels.com/photos/7381200/pexels-photo-7381200.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-                                    alt=""
-                                />
-                                <span>photo_2024_2.png</span>
+                            <div className="photoItem">
+                                <div className="photoDetail">
+                                    <img
+                                        src="https://images.pexels.com/photos/7381200/pexels-photo-7381200.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
+                                        alt=""
+                                    />
+                                    <span>photo_2024_2.png</span>
+                                </div>
+                                <img src="./download.png" alt="" className="icon" />
                             </div>
-                            <img src="./download.png" alt="" className="icon" />
-                        </div>
-                        <div className="photoItem">
-                            <div className="photoDetail">
-                                <img
-                                    src="https://images.pexels.com/photos/7381200/pexels-photo-7381200.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-                                    alt=""
-                                />
-                                <span>photo_2024_2.png</span>
+                            <div className="photoItem">
+                                <div className="photoDetail">
+                                    <img
+                                        src="https://images.pexels.com/photos/7381200/pexels-photo-7381200.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
+                                        alt=""
+                                    />
+                                    <span>photo_2024_2.png</span>
+                                </div>
+                                <img src="./download.png" alt="" className="icon" />
                             </div>
-                            <img src="./download.png" alt="" className="icon" />
-                        </div>
-                        <div className="photoItem">
-                            <div className="photoDetail">
-                                <img
-                                    src="https://images.pexels.com/photos/7381200/pexels-photo-7381200.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-                                    alt=""
-                                />
-                                <span>photo_2024_2.png</span>
+                            <div className="photoItem">
+                                <div className="photoDetail">
+                                    <img
+                                        src="https://images.pexels.com/photos/7381200/pexels-photo-7381200.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
+                                        alt=""
+                                    />
+                                    <span>photo_2024_2.png</span>
+                                </div>
+                                <img src="./download.png" alt="" className="icon" />
                             </div>
-                            <img src="./download.png" alt="" className="icon" />
                         </div>
-                    </div>
+                    )}
                 </div>
                 <div className="option">
                     <div className="title">
