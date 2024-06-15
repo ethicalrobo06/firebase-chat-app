@@ -6,6 +6,7 @@ import { db } from '../../lib/firebase';
 import { useChatStore } from '../../lib/chatStore';
 import { useUserStore } from '../../lib/userStore';
 import upload from '../../lib/upload';
+import { format } from "timeago.js";
 
 function Chat() {
     const [open, setOpen] = useState(false);
@@ -121,7 +122,7 @@ function Chat() {
                         <div className="texts">
                             {message.img && <img src={message.img} />}
                             <p>{message.text}</p>
-                            <span>1 min ago</span>
+                            <span>{format(message.createdAt.toDate())}</span>
                         </div>
                     </div>
                 ))}
