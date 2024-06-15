@@ -16,6 +16,7 @@
       object-fit: cover;
     }
   }
+
   .icons {
     display: flex;
     gap: 20px;
